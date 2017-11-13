@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { StackNavigator } from 'react-navigation';
 import {
   StyleSheet,
-  View,
 } from 'react-native';
 import thunk from 'redux-thunk';
 import reducers from './reducers/';
-// import LoginView from './components/LoginView';
-// import HomeView from './components/HomeView';
-import FightView from './components/FightView';
+import HomeScreen from './components/HomeScreen';
+import GameScreen from './components/GameScreen';
 
 const appStore = createStore(
   reducers,
   applyMiddleware(thunk),
 );
+
+const Navigator = StackNavigator({
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      headerTitle: 'Смертельная битва',
+    },
+  },
+  Game: {
+    screen: GameScreen,
+    navigationOptions: {
+      headerTitle: 'Бой',
+    },
+  },
+});
 
 export default class App extends Component {
   componentWillMount() {
@@ -23,7 +37,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={appStore}>
-        <FightView style={styles.container} />
+        <Navigator />
       </Provider>
     );
   }

@@ -18,13 +18,31 @@ export function selectDeffenseOption(option) {
   };
 }
 
+export function loose() {
+  return {
+    type: types.USER_LOOSE,
+  };
+}
+
+export function win() {
+  return {
+    type: types.OPPONENT_LOOSE,
+  };
+}
+
 export function hitUser(damage) {
   return (dispatch, getState) => {
     const { userHealth } = getState().fight;
+    const healthAfterDamage = userHealth - damage;
+
+    if (healthAfterDamage <= 0) {
+      //u r dead =/
+      dispatch(loose());
+    }
 
     dispatch({
       type: types.SET_USER_HEALTH,
-      health: userHealth - damage,
+      health: healthAfterDamage,
     });
   };
 }
@@ -32,10 +50,15 @@ export function hitUser(damage) {
 export function hitOpponent(damage) {
   return (dispatch, getState) => {
     const { opponentHealth } = getState().fight;
+    const healthAfterDamage = opponentHealth - damage;
+
+    if (healthAfterDamage <= 0) {
+      dispatch(win());
+    }
 
     dispatch({
       type: types.SET_OPPONENT_HEALTH,
-      health: opponentHealth - damage,
+      health: healthAfterDamage,
     });
   };
 }

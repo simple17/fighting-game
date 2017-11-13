@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-export default (props) => {
-  const containerStyles = true ? StyleSheet.flatten([
+export default ({ winner, resetFight }) => {
+  const containerStyles = winner === 'user' ? StyleSheet.flatten([
     styles.container,
     styles.containerWin
   ]) : StyleSheet.flatten([
@@ -10,12 +10,14 @@ export default (props) => {
     styles.containerLose
   ]);
 
-  const textStyles = true ? styles.stateWin : styles.stateLose;
+  const textStyles = winner === 'user' ? styles.stateWin : styles.stateLose;
 
   return (
     <View style={containerStyles}>
-      <Text style={textStyles}>Победа!</Text>
-      <Button title="OK" color="red" onPress={() => {}} />
+      <Text style={textStyles}>{winner === 'user' ? 'Победа!' : 'Сорян, ты проиграл... =('}</Text>
+      <Button title="Ещё раз!" color="red" onPress={() => {
+        resetFight();
+      }} />
     </View>
   );
 };
@@ -23,15 +25,14 @@ export default (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   containerWin: {
-
+    backgroundColor: 'green',
   },
   containerLose: {
-
+    backgroundColor: 'red',
   },
   stateWin: {
     fontSize: 19,

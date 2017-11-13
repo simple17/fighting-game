@@ -69,10 +69,12 @@ class FightView extends React.Component {
           <Person
             style={styles.person}
             healthStart="left"
+            avatar={require('../../media/scorp.jpg')}
             health={userHealth}
           />
           <Person
             style={styles.person}
+            avatar={require('../../media/sub.jpg')}
             healthStart="right"
             health={opponentHealth}
           />
