@@ -12,8 +12,8 @@ const defaultState = {
   selectedDeffenseOption: 'head',
   selectedAttackOption: 'head',
   logMessages: [],
-  userHealth: 100,
-  opponentHealth: 100,
+  userHealth: 10,
+  opponentHealth: 10,
 };
 
 export default (state = defaultState, action) => {

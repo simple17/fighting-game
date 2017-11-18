@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 export default ({ health, healthStart }) => {
-  const percent = health < 0 ? 0 : health;
+  const percent = health < 0 ? 0 : health * 10;
 
   return (
     <View
